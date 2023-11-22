@@ -4,7 +4,8 @@
     {
         public override void Destroy()
         {
-            Console.WriteLine("Die");
+            ElementForm = TypeOfElement.None;
+            Button.BackgroundImage = null;
         }
 
     }

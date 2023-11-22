@@ -12,7 +12,6 @@ namespace MatchThreeGame
             var frm = new Form2();
             frm.Location = Location;
             frm.StartPosition = FormStartPosition.Manual;
-            frm.FormClosing += delegate { Show(); };
             frm.Show();
             Hide();
         }
