@@ -15,12 +15,6 @@ namespace MatchThreeGame
         public Form2()
         {
             InitializeComponent();
-            //Image gems = new Bitmap(Resources.gems);
-            //Image gem = new Bitmap(128, 128, gems.PixelFormat);
-            //Graphics g = Graphics.FromImage(gem);
-            //Rectangle cropGem = new Rectangle(0, 0, 128, 128);
-            //g.DrawImage(gems, new Rectangle(0, 0, 128, 128), cropGem, GraphicsUnit.Pixel);
-            //button1.BackgroundImage = Image;
 
             Init();
         }
@@ -33,8 +27,6 @@ namespace MatchThreeGame
                 Controls.Add(elem.Button);
             }
         }
-
-
 
     }
 }
