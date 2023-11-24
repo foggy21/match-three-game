@@ -12,11 +12,11 @@ namespace MatchThreeGame
 {
     public partial class Form2 : Form
     {
-        private int remainingSeconds = 11;
+        private int remainingSeconds = 61;
         public Form2()
         {
             InitializeComponent();
-
+            
             Init();
 
         }
@@ -42,14 +42,20 @@ namespace MatchThreeGame
             remainingSeconds--;
             timerLabel.Text = $"Remaining seconds: {remainingSeconds} sec.";
 
-            if (remainingSeconds <= 0)
+            if (remainingSeconds == 0)
             {
                 var frm = new Form3();
+                frm.FormClosed += CloseMain;
                 frm.Location = Location;
                 frm.StartPosition = FormStartPosition.Manual;
                 frm.Show();
-                Close();
+                Hide();
             }
+        }
+
+        private void CloseMain(object? sender, FormClosedEventArgs e)
+        {
+            Close();
         }
     }
 }

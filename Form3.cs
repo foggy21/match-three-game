@@ -23,7 +23,7 @@ namespace MatchThreeGame
             frm.Location = Location;
             frm.StartPosition = FormStartPosition.Manual;
             frm.Show();
-            Close();
+            Hide();
         }
     }
 }

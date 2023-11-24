@@ -4,6 +4,9 @@
     {
         public Button Button { get; set; }
 
+        protected Image tileSet;
+        protected Image imageOfButton;
+        protected Graphics graphics;
         public TypeOfElement ElementForm { get; set; }
 
         private Dictionary<TypeOfElement, int[,]> TypesOfElements { get => new Dictionary<TypeOfElement, int[,]>()
@@ -17,40 +20,42 @@
             };
         }
 
-        public void SetRandomImage()
+        public virtual void SetImage()
         {
-            Image imageGems = new Bitmap(Resources.gems);
-            Image imageGem = new Bitmap(128, 128, imageGems.PixelFormat);
-            Graphics g = Graphics.FromImage(imageGem);
+            SetInstanceOfImage(out tileSet, out imageOfButton, out graphics);
 
-            ElementForm = GetRandomTypeOfElement(0, 5);
+            ElementForm = GetRandomTypeOfElement(0, TypesOfElements.Count() - 1);
             int[,] position = TypesOfElements[ElementForm];
 
             Rectangle cropGem = new Rectangle(position[0, 0] * 128, position[0, 1] * 128, 128, 128);
-            g.DrawImage(imageGems, new Rectangle(0, 0, 128, 128), cropGem, GraphicsUnit.Pixel);
-            Button.BackgroundImage = imageGem;
+            graphics.DrawImage(tileSet, new Rectangle(0, 0, 128, 128), cropGem, GraphicsUnit.Pixel);
+            Button.BackgroundImage = imageOfButton;
         }
 
-        public void SetImageOfType(TypeOfElement typeOfElement)
+        public void SetImage(TypeOfElement typeOfElement)
         {
-            Image imageGems = new Bitmap(Resources.gems);
-            Image imageGem = new Bitmap(128, 128, imageGems.PixelFormat);
-            Graphics g = Graphics.FromImage(imageGem);
+            SetInstanceOfImage(out tileSet, out imageOfButton, out graphics);
 
             ElementForm = typeOfElement;
             int[,] position = TypesOfElements[ElementForm];
+
             if (position != null)
             {
                 Rectangle cropGem = new Rectangle(position[0, 0] * 128, position[0, 1] * 128, 128, 128);
-                g.DrawImage(imageGems, new Rectangle(0, 0, 128, 128), cropGem, GraphicsUnit.Pixel);
-                Button.BackgroundImage = imageGem;
-            }
+                graphics.DrawImage(tileSet, new Rectangle(0, 0, 128, 128), cropGem, GraphicsUnit.Pixel);
+                Button.BackgroundImage = imageOfButton;
+            } 
             else
             {
                 Button.BackgroundImage = null;
             }
+        }
 
-            
+        protected void SetInstanceOfImage(out Image tileSet, out Image image, out Graphics graphics)
+        {
+            tileSet = new Bitmap(Resources.gems);
+            image = new Bitmap(128, 128, tileSet.PixelFormat);
+            graphics = Graphics.FromImage(image);
         }
 
         private TypeOfElement GetRandomTypeOfElement(int minValue, int maxValue)
@@ -71,6 +76,12 @@
             Rhombus,
             Star,
             Hexagon,
+            None,
+        }
+        public enum TypeOfBonus
+        {
+            Line,
+            Bomb,
             None,
         }
     }
